@@ -43,9 +43,6 @@
                     double valorASerCobrado = 0;
                     if (v.Tipo == TipoVeiculo.Automovel)
                     {
-                        /// o método Math.Ceiling(), aplica o conceito de teto da matemática onde o valor máximo é o inteiro imediatamente posterior a ele.
-                        /// Ex.: 0,9999 ou 0,0001 teto = 1
-                        /// Obs.: o conceito de chão é inverso e podemos utilizar Math.Floor();
                         valorASerCobrado = Math.Ceiling(tempoPermanencia.TotalHours) * 2;
 
                     }

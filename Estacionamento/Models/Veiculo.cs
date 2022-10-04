@@ -1,7 +1,9 @@
-﻿namespace Estacionamento.Models
+﻿using System.Collections;
+
+namespace Estacionamento.Models
 {
 
-    public class Veiculo
+    public class Veiculo : IEnumerable<object[]>
     {
   
         private string _placa;
@@ -78,7 +80,21 @@
         {
             this.VelocidadeAtual -= (tempoSeg * 15);
         }
+        public IEnumerator<object[]> GetEnumerator()
+        {
+            yield return new object[]
+            {
+                new Veiculo
+                {
+                    Proprietario = "Nathan Lubawski",
+                    Placa = "ASD-9999",
+                    Cor="Verde",
+                    Modelo="Fusca"
+                }
+            };
+        }
 
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public Veiculo()
         {
