@@ -4,22 +4,21 @@ namespace Estacionamento.Tests
 {
     public class VeiculoTests
     {
-        [Fact(DisplayName = "Teste nº 1")]
+        [Fact()]
         [Trait("Funcionalidade", "Acelerar")]
-        public void TestaVeiculoAcelerar()
+        public void Veiculo_Acelerar_AumentaVelocidade()
         {
-            //Arrange
             var veiculo = new Veiculo();
-            //Act
+
             veiculo.Acelerar(10);
-            //Assert
+
             Assert.Equal(100, veiculo.VelocidadeAtual);
         }
 
-        [Fact(DisplayName = "Teste nº 2")]
+        [Fact()]
         [Trait("Funcionalidade", "Frear")]
 
-        public void TestaVeiculoFrear()
+        public void Veiculo_Frear_DiminuirVelocidade()
         {
             var veiculo = new Veiculo();
             veiculo.Frear(10);
@@ -27,43 +26,36 @@ namespace Estacionamento.Tests
         }
 
         [Fact]
-        public void TestaTipoVeiculo()
+        public void Veiculo_TipoVeiculo_DeveSerAutomovel()
         {
-            //Arrange
             var veiculo = new Veiculo();
 
-            //Act
             veiculo.Tipo = TipoVeiculo.Automovel;
 
-            //Assert
             Assert.Equal(TipoVeiculo.Automovel, veiculo.Tipo);
-    
 
         }
 
-        [Fact(DisplayName = "Teste nº 3",Skip = "Teste ainda não implementado. Ignorar")]
-        public void ValidaNomeProprietario()
+        [Fact(Skip = "Teste ainda não implementado. Ignorar")]
+        public void Veiculo_DadoNomeDoProprietario_EValido()
         {
 
         }
 
         [Theory]
         [ClassData(typeof(Veiculo))]
-        public void TestaVeiculoClass(Veiculo modelo)
+        public void VeiculoPassadoPorParametro_Acelerar_AumentaVelocidade(Veiculo modelo)
         {
-            //Arrange
             var veiculo = new Veiculo();
 
-            //Act
             veiculo.Acelerar(10);
             modelo.Acelerar(10);
 
-            //Assert
             Assert.Equal(modelo.VelocidadeAtual, veiculo.VelocidadeAtual);
         }
 
         [Fact]
-        public void DadosVeiculo()
+        public void Veiculo_MostrarDados_DeveMostrar()
         {
             var carro = new Veiculo();
             carro.Proprietario = "Nathan";
@@ -77,6 +69,6 @@ namespace Estacionamento.Tests
             Assert.Contains("Ficha do Veiculo:", dados);
 
         }
-        
+
     }
 }
