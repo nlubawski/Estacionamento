@@ -71,6 +71,26 @@
 
             return informacao;
         }
+
+        public Veiculo PesquisaVeiculo(string placa)
+        {
+            var encontrado = (from veiculo in this.Veiculos 
+                              where veiculo.Placa == placa
+                              select veiculo).SingleOrDefault();
+
+            return encontrado;
+        }
+
+        public Veiculo AlterarDadosVeiculo(Veiculo veiculoAlterado)
+        {
+            var veiculoTemp = (from veiculo in this.Veiculos
+                               where veiculo.Placa == veiculoAlterado.Placa
+                               select veiculo).SingleOrDefault();
+
+            veiculoTemp.AlterarDados(veiculoAlterado);
+            
+            return veiculoTemp;
+        }
     }
 }
 

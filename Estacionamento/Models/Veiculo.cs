@@ -96,6 +96,14 @@ namespace Estacionamento.Models
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
+        public void AlterarDados(Veiculo veiculoAlterado)
+        {
+            this.Proprietario = veiculoAlterado.Proprietario;
+            this.Largura = veiculoAlterado.Largura;
+            this.Cor = veiculoAlterado.Cor;
+            this.Modelo = veiculoAlterado.Modelo; 
+        }
+
         public Veiculo()
         {
 
@@ -104,6 +112,16 @@ namespace Estacionamento.Models
         public Veiculo(string proprietario)
         {
             Proprietario = proprietario;
+        }
+
+        public override string ToString()
+        {
+            return $"Ficha do Veiculo:\n " +
+                    $"Tipo do veiculo: {this.Tipo.ToString()}\n" +
+                    $"Proprietario: {this.Proprietario.ToString()}\n" + $"Tipo do veiculo: {this.Tipo.ToString()}\n" +
+                    $"Modelo: {this.Modelo.ToString()}\n" +
+                    $"Cor: {this.Cor.ToString()}\n" +
+                    $"Placa: {this.Placa.ToString()}\n";
         }
     }
 }

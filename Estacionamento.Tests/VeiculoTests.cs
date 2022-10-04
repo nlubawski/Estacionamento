@@ -61,5 +61,22 @@ namespace Estacionamento.Tests
             //Assert
             Assert.Equal(modelo.VelocidadeAtual, veiculo.VelocidadeAtual);
         }
+
+        [Fact]
+        public void DadosVeiculo()
+        {
+            var carro = new Veiculo();
+            carro.Proprietario = "Nathan";
+            carro.Tipo = TipoVeiculo.Automovel;
+            carro.Placa = "ASD-9999";
+            carro.Cor = "azul";
+            carro.Modelo = "Gol";
+
+            string dados = carro.ToString();
+
+            Assert.Contains("Ficha do Veiculo:", dados);
+
+        }
+        
     }
 }
