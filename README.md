@@ -11,3 +11,6 @@ Aplicação de boas práticas na nomeação de métodos de testes com o padrão 
 Aplicação dos conceitos de Setup e Cleanup na escrita dos métodos de testes. 
 Utilização do ITestOutputHelper para escrever no console do gerenciador de testes.
 
+Criação de um método de teste para testar exceções mapeadas no desenvolvimento da aplicação, utilizando o Assert.Throws.
+Realizado testes de regressão após ser adicionada nova funcionalidade.
+
