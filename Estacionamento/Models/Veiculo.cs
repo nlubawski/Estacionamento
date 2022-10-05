@@ -53,7 +53,19 @@ namespace Estacionamento.Models
         public string Modelo { get; set; }
         public string Proprietario
         {
-            get; set;
+            get
+            {
+                return _proprietario;
+            }
+            set
+            {
+                if (value.Length < 3)
+                {
+                    throw new FormatException("Nome do proprietario deve ter mais que 2 caracteres");
+                }
+
+                _proprietario = value;
+            }
         }
         public DateTime HoraEntrada { get; set; }
         public DateTime HoraSaida { get; set; }
@@ -70,7 +82,6 @@ namespace Estacionamento.Models
             }
         }
 
-        //Métodos
         public void Acelerar(int tempoSeg)
         {
             this.VelocidadeAtual += (tempoSeg * 10);
@@ -95,6 +106,8 @@ namespace Estacionamento.Models
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+
 
         public void AlterarDados(Veiculo veiculoAlterado)
         {

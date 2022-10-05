@@ -69,7 +69,28 @@ namespace Estacionamento.Tests
             string dados = veiculo.ToString();
 
             Assert.Contains("Ficha do Veiculo:", dados);
+        }
 
+        [Fact]
+        public void Veiculo_TamanhoDoNomeDoProprietarioComTamanhoMenorQueTres_DeveDarExcessao()
+        {
+            string nomeProprietario = "na";
+
+            Assert.Throws<FormatException>(
+                () => new Veiculo(nomeProprietario)
+            );
+        }
+
+        [Fact]
+        public void Veiculo_ExcessaoDoQuartoCaractereDaPlaca_DeveDarExcessao()
+        {
+            string placa = "ASDF8888";
+
+            var mensagem = Assert.Throws<FormatException>(
+                () => new Veiculo().Placa = placa
+            );
+
+            Assert.Equal("O 4° caractere deve ser um hífen", mensagem.Message);
         }
 
         public void Dispose()
