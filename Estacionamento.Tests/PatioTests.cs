@@ -57,7 +57,7 @@ namespace Estacionamento.Tests
 
         [Theory]
         [InlineData("Pessoa 1", "ASD-9999", "Preto", "Gol")]
-        public void Patio_LocalizaVeiculo_DeveEncontrar(string proprietario, string placa,
+        public void Patio_LocalizaVeiculoPorIdTicket_DeveEncontrar(string proprietario, string placa,
                                                        string cor, string modelo)
         {
             veiculo.Proprietario = proprietario;
@@ -66,9 +66,9 @@ namespace Estacionamento.Tests
             veiculo.Placa = placa;
             estacionamento.RegistrarEntradaVeiculo(veiculo);
 
-            var consultado = estacionamento.PesquisaVeiculo(placa);
+            var consultado = estacionamento.PesquisaVeiculo(veiculo.IdTicket);
 
-            Assert.Equal(placa, consultado.Placa);
+            Assert.Contains("### Ticket Estacionamento", consultado.Ticket);
         }
 
         [Fact]
