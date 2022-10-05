@@ -7,6 +7,7 @@ namespace Estacionamento.Tests
     {
         private Veiculo veiculo;
         private Patio estacionamento;
+        private Operador operador;
         public ITestOutputHelper SaidaConsoleTeste;
 
         public PatioTests(ITestOutputHelper saidaConsoleTeste)
@@ -15,11 +16,14 @@ namespace Estacionamento.Tests
             SaidaConsoleTeste.WriteLine("execucao do construtor invocado");
             veiculo = new Veiculo();
             estacionamento = new Patio();
+            operador = new Operador();
+            operador.Nome = "wski";
         }
 
         [Fact]
         public void Patio_Faturamento_EValido()
         {
+            estacionamento.OperadorPatio = operador;
             veiculo.Proprietario = "Nathan";
             veiculo.Tipo = TipoVeiculo.Automovel;
             veiculo.Cor = "Verde";
@@ -41,6 +45,7 @@ namespace Estacionamento.Tests
         public void Patio_Faturamento_DeveSerValido(string proprietario, string placa,
                                                        string cor, string modelo)
         {
+            estacionamento.OperadorPatio = operador;
             veiculo.Proprietario = proprietario;
             veiculo.Cor = cor;
             veiculo.Modelo = modelo;
@@ -60,6 +65,7 @@ namespace Estacionamento.Tests
         public void Patio_LocalizaVeiculoPorIdTicket_DeveEncontrar(string proprietario, string placa,
                                                        string cor, string modelo)
         {
+            estacionamento.OperadorPatio = operador;
             veiculo.Proprietario = proprietario;
             veiculo.Cor = cor;
             veiculo.Modelo = modelo;
@@ -74,6 +80,7 @@ namespace Estacionamento.Tests
         [Fact]
         public void Patio_AlterarDadosVeiculoCadastrado_DeveAlterar()
         {
+            estacionamento.OperadorPatio = operador;
             veiculo.Proprietario = "Nathan";
             veiculo.Cor = "amarelo";
             veiculo.Modelo = "fusca";
