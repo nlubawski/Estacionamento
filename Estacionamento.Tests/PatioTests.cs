@@ -1,16 +1,25 @@
 ﻿using Estacionamento.Models;
+using Xunit.Abstractions;
 
 namespace Estacionamento.Tests
 {
-    public class PatioTests
+    public class PatioTests : IDisposable
     {
+        private Veiculo veiculo;
+        private Patio estacionamento;
+        public ITestOutputHelper SaidaConsoleTeste;
+
+        public PatioTests(ITestOutputHelper saidaConsoleTeste)
+        {
+            SaidaConsoleTeste = saidaConsoleTeste;
+            SaidaConsoleTeste.WriteLine("execucao do construtor invocado");
+            veiculo = new Veiculo();
+            estacionamento = new Patio();
+        }
+
         [Fact]
         public void Patio_Faturamento_EValido()
         {
-
-            var estacionamento = new Patio();
-            var veiculo = new Veiculo();
-
             veiculo.Proprietario = "Nathan";
             veiculo.Tipo = TipoVeiculo.Automovel;
             veiculo.Cor = "Verde";
@@ -20,13 +29,8 @@ namespace Estacionamento.Tests
             estacionamento.RegistrarEntradaVeiculo(veiculo);
             estacionamento.RegistrarSaidaVeiculo(veiculo.Placa);
 
-
             double faturamento = estacionamento.TotalFaturado();
-
-
             Assert.Equal(2, faturamento);
-
-
         }
 
         [Theory]
@@ -37,12 +41,7 @@ namespace Estacionamento.Tests
         public void Patio_Faturamento_DeveSerValido(string proprietario, string placa,
                                                        string cor, string modelo)
         {
-
-            var estacionamento = new Patio();
-            var veiculo = new Veiculo();
-
             veiculo.Proprietario = proprietario;
-            //veiculo.Tipo = TipoVeiculo.Automovel;
             veiculo.Cor = cor;
             veiculo.Modelo = modelo;
             veiculo.Placa = placa;
@@ -61,9 +60,6 @@ namespace Estacionamento.Tests
         public void Patio_LocalizaVeiculo_DeveEncontrar(string proprietario, string placa,
                                                        string cor, string modelo)
         {
-
-            var estacionamento = new Patio();
-            var veiculo = new Veiculo();
             veiculo.Proprietario = proprietario;
             veiculo.Cor = cor;
             veiculo.Modelo = modelo;
@@ -78,9 +74,6 @@ namespace Estacionamento.Tests
         [Fact]
         public void Patio_AlterarDadosVeiculoCadastrado_DeveAlterar()
         {
-
-            var estacionamento = new Patio();
-            var veiculo = new Veiculo();
             veiculo.Proprietario = "Nathan";
             veiculo.Cor = "amarelo";
             veiculo.Modelo = "fusca";
@@ -93,11 +86,13 @@ namespace Estacionamento.Tests
             veiculoAlterado.Modelo = "fusca";
             veiculoAlterado.Placa = "AAA-9999";
 
-
             Veiculo alterado = estacionamento.AlterarDadosVeiculo(veiculoAlterado);
-
-
             Assert.Equal(alterado.Cor, veiculoAlterado.Cor);
+        }
+
+        public void Dispose()
+        {
+            SaidaConsoleTeste.WriteLine("Dispose invocado");
         }
     }
 }

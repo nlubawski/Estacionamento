@@ -1,14 +1,24 @@
 using Estacionamento.Models;
+using Xunit.Abstractions;
 
 namespace Estacionamento.Tests
 {
-    public class VeiculoTests
+    public class VeiculoTests : IDisposable
     {
+        private Veiculo veiculo;
+        public ITestOutputHelper SaidaConsoleTeste;
+
+        public VeiculoTests(ITestOutputHelper _saidaConsoleTeste)
+        {
+            SaidaConsoleTeste = _saidaConsoleTeste;
+            SaidaConsoleTeste.WriteLine("execucao do construtor invocado");
+            veiculo = new Veiculo();
+        }
+        
         [Fact()]
         [Trait("Funcionalidade", "Acelerar")]
         public void Veiculo_Acelerar_AumentaVelocidade()
         {
-            var veiculo = new Veiculo();
 
             veiculo.Acelerar(10);
 
@@ -20,7 +30,6 @@ namespace Estacionamento.Tests
 
         public void Veiculo_Frear_DiminuirVelocidade()
         {
-            var veiculo = new Veiculo();
             veiculo.Frear(10);
             Assert.Equal(-150, veiculo.VelocidadeAtual);
         }
@@ -28,26 +37,19 @@ namespace Estacionamento.Tests
         [Fact]
         public void Veiculo_TipoVeiculo_DeveSerAutomovel()
         {
-            var veiculo = new Veiculo();
-
             veiculo.Tipo = TipoVeiculo.Automovel;
-
             Assert.Equal(TipoVeiculo.Automovel, veiculo.Tipo);
-
         }
 
         [Fact(Skip = "Teste ainda não implementado. Ignorar")]
         public void Veiculo_DadoNomeDoProprietario_EValido()
         {
-
         }
 
         [Theory]
         [ClassData(typeof(Veiculo))]
         public void VeiculoPassadoPorParametro_Acelerar_AumentaVelocidade(Veiculo modelo)
         {
-            var veiculo = new Veiculo();
-
             veiculo.Acelerar(10);
             modelo.Acelerar(10);
 
@@ -57,18 +59,23 @@ namespace Estacionamento.Tests
         [Fact]
         public void Veiculo_MostrarDados_DeveMostrar()
         {
-            var carro = new Veiculo();
-            carro.Proprietario = "Nathan";
-            carro.Tipo = TipoVeiculo.Automovel;
-            carro.Placa = "ASD-9999";
-            carro.Cor = "azul";
-            carro.Modelo = "Gol";
+            Veiculo carro = new Veiculo();
+            veiculo.Proprietario = "Nathan";
+            veiculo.Tipo = TipoVeiculo.Automovel;
+            veiculo.Placa = "ASD-9999";
+            veiculo.Cor = "azul";
+            veiculo.Modelo = "Gol";
 
-            string dados = carro.ToString();
+            string dados = veiculo.ToString();
 
             Assert.Contains("Ficha do Veiculo:", dados);
 
         }
 
+        public void Dispose()
+        {
+            SaidaConsoleTeste.WriteLine("Dispose invocado");
+
+        }
     }
 }
